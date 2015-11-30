@@ -1,17 +1,13 @@
-
 #include "list_of_teams.hpp"
 
 using namespace std;
+/*
+ * std::vector<team::team> k_(m);
+ */
 
-list_of_teams::list_of_teams()
-{
 
-}
 
-list_of_teams::~list_of_teams()
-{
 
-}
 //бинарный поиск элемента
 int list_of_teams::binsearch(const team &my_elem){
     size_t l = 0;
@@ -84,3 +80,4 @@ void list_of_teams::heap_sort()
     }
 }
 
+//хеш доступ

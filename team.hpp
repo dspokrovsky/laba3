@@ -4,11 +4,16 @@
 #include <boost/operators.hpp>
 #include <iostream>
 
+
+
 class team : public boost::totally_ordered1<team>
 {
 public:
     team(std::string& a,std::string& b,size_t& c,std::string& d)
-        :name_(a),town_(b),points_(c),trainer_(d)
+        :name_(a),town_(b),points_(c),trainer_(d), hash_(0)
+    {
+    }
+    team()
     {
     }
 
@@ -65,6 +70,17 @@ public:
         return (points_<other.points_) or ((name_>other.name_)&&(points_==other.points_));
     }
 
+    const size_t& hash() const
+    {
+        return hash_;
+    }
+
+    size_t& hash()
+    {
+        return hash_;
+    }
+
+
     //Вывод
 
     friend std::ostream& operator<<(std::ostream& os, const team& dt){
@@ -73,7 +89,9 @@ public:
     }
 
 
+
 private:
+
 
     std::string name_;
 
@@ -82,6 +100,9 @@ private:
     size_t points_;
 
     std::string trainer_;
+    
+    size_t hash_;
+
 };
 
 #endif // TEAM_HPP
