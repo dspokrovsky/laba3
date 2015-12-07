@@ -5,11 +5,12 @@
 #include <map>
 #include <string>
 #include <team.hpp>
+#include <math.h>
 
 long long calculate_hash1(const team& dt)
 {
     size_t h =0;
-    size_t m = 5465;
+    size_t m = (1<<12) + 101;
     for(size_t i =0; i < dt.name().size(); i ++){
         h += dt.name()[i] << i;
     }
@@ -17,12 +18,12 @@ long long calculate_hash1(const team& dt)
 }
 long long calculate_hash2(const team& dt)
 {
-    size_t h =0;
-    size_t m = 5465;
+    long long h=0;
+    int p = 43;
     for(size_t i =0; i < dt.name().size(); i ++){
-        h += dt.name()[i] << i;
+        h += dt.name()[i] * pow(p,i);
     }
-    return h%(m-1);
+    return h;
 }
 bool hashSearch(const team &dt, std::multimap<long long, team> &list, std::multimap<long long, team>::iterator my_it){
     auto range = list.equal_range(dt.hash());
@@ -59,6 +60,8 @@ int main(){
            t.hash() = calculate_hash2(t);
            l2.emplace(std::make_pair(t.hash(),t));
         }
+        team t(a,b,c,d);//сохраним один элемент, что будем искать
+        t.hash() = calculate_hash1(t);
         //считаем коллизии
         size_t count=0;
         auto end = l1.end()--;
@@ -67,7 +70,7 @@ int main(){
             i++;
             if (i->first==(k)->first) count++;
         }
-        std::cout << "hash1"<<count;
+        std::cout << "hash1: "<<count<< std::endl;
         count=0;
         end = l2.end()--;
         for(auto i = l2.begin(); i != end;){
@@ -75,8 +78,14 @@ int main(){
             i++;
             if (i->first==(k)->first) count++;
         }
-        std::cout << "hash1" << count << std::endl;
+        std::cout << "hash2: " << count << std::endl;
 
+        auto it = l2.begin();
+        clock_t t2;
+        clock_t t1 = clock();
+        hashSearch(t,l2,it);
+        t2 = clock();
+        std::cout << (double)(t2-t1)/(double)CLOCKS_PER_SEC << std::endl;
     }
 
     return 0;
