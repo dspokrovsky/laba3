@@ -25,8 +25,8 @@ int main(){
 
         team t0(a,b,c,d);
 
-        list_of_teams_hash1 l1(m);
-        list_of_teams_hash2 l2(m);
+        list_of_teams_hash1 l1();
+        list_of_teams_hash2 l2();
 
 /*
         std::vector<size_t> collisions1;
