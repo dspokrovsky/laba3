@@ -70,12 +70,12 @@ public:
         return (points_<other.points_) or ((name_>other.name_)&&(points_==other.points_));
     }
 
-    const size_t& hash() const
+    const long long& hash() const
     {
         return hash_;
     }
 
-    size_t& hash()
+    long long& hash()
     {
         return hash_;
     }
@@ -101,7 +101,7 @@ private:
 
     std::string trainer_;
     
-    size_t hash_;
+    long long hash_;
 
 };
 
